@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.EmpresaMapper">
+    <insert id="InsertEmpresa" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        INSERT INTO "public"."empresa" ("id", "nome") VALUES (#{empresa.id}, #{empresa.nome})
+    </insert>
+
+    <update id="UpdateEmpresa">
+        UPDATE "public"."empresa" SET "nome" = #{empresa.nome} WHERE "id" = #{id}
+    </update>
+
+    <delete id="DeleteEmpresa">
+        DELETE FROM treinamento.public.empresa WHERE id=#{id}
+    </delete>
+
+    <select id="empresas" resultType="br.com.ithappens.model.Empresa">
+        SELECT * FROM treinamento.public.empresa
+    </select>
+
+
+</mapper>

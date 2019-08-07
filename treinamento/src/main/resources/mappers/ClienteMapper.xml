@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.ClienteMapper">
+
+    <resultMap id="clienteMap" type="br.com.ithappens.model.Cliente">
+        <result column="codigo" property="codigo"/>
+        <result column="nome" property="nome"/>
+
+        <!--        <association property="endereco" javaType="br.com.ithappens.model.Endereco">-->
+        <!--            <result column="e_bairro" property="bairro"/>-->
+        <!--            <result column="e_logradouro" property="logradouro"/>-->
+        <!--        </association>-->
+        <collection property="enderecos" javaType="ArrayList" ofType="br.com.ithappens.model.Endereco"
+                    select="br.com.ithappens.mapper.EnderecoMapper.buscarEnderecos" column="codigo"/>
+    </resultMap>
+
+    <insert id="salvar" useGeneratedKeys="true" keyColumn="codigo" keyProperty="cli.codigo">
+        INSERT INTO cliente(nome)
+        VALUES (#{cli.nome});
+    </insert>
+
+    <select id="buscaClientes" resultMap="clienteMap">
+        SELECT codigo,
+               nome
+        FROM cliente
+    </select>
+</mapper>
